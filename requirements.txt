@@ -1,0 +1,13 @@
+# Web 框架
+Flask==2.3.3
+flask-cors==4.0.0
+
+# OpenAI API 调用
+openai==1.30.1
+
+# 可视化
+plotly==5.21.0
+
+# 数据库支持
+elasticsearch==8.12.1          # 若使用 Elasticsearch
+
