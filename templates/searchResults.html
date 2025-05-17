@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>AI 检索结果</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='aiResponse.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='weiboPosts.css') }}">
+</head>
+<body>
+    <a href="{{ url_for('index') }}">🔙 返回首页</a>
+
+    <h2>问题：{{ query }}</h2>
+
+    <h3>🤖 深度思考（DS-R1）：</h3>
+    <div class="ai-response">{{ ai_response | safe }}</div>
+
+
+    <!-- 微博总数提示 -->
+    <p class="weibo-count">共参考 20 篇博文</p>
+
+    <h3>🔍 相关微博：</h3>
+    {% for item in results %}
+        <div class="post">
+            <div class="user-info">
+                {% set emoji = {
+                    "普通用户": "🧑",
+                    "黄V": "👑",
+                    "蓝V": "💼",
+                    "红V": "🎯",
+                    "金V": "🏅"
+                } %}
+                {{ item.screen_name }} {{ emoji.get(item.user_authentication, "🧑") }} 
+            </div>
+            <div class="post-meta">
+                🕒 {{ item.created_at }}
+            </div>
+            <div class="post-content">
+                {{ item.text }}
+            </div>
+            <div class="interaction">
+                🔁 {{ item.reposts_count }}　💬 {{ item.comments_count }}　❤️ {{ item.attitudes_count }}
+            </div>
+        </div>
+    {% endfor %}
+
+<canvas id="particleCanvas"></canvas>
+
+<script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+</body>
+</html>
+
+

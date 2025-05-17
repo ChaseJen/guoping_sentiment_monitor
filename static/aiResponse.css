@@ -1,0 +1,54 @@
+
+.ai-response {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-bottom: 30px;
+}
+
+/* 标题样式 */
+.ai-response h1, .ai-response h2, .ai-response h3 {
+    color: #2c3e50;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+/* 列表样式 */
+.ai-response ul, .ai-response ol {
+    padding-left: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.ai-response li {
+    margin-bottom: 0.5em;
+}
+
+/* 加粗和斜体 */
+.ai-response strong {
+    font-weight: bold;
+    color: #d35400;
+}
+
+.ai-response em {
+    font-style: italic;
+    color: #888;
+}
+
+/* 段落 */
+.ai-response p {
+    margin-bottom: 1em;
+}
+
+/* 代码块或行内代码 */
+.ai-response code {
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+

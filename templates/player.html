@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }} 的微博博文</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='weiboPosts.css') }}">
+</head>
+<body>
+
+<a href="{{ url_for('index') }}">🔙 返回首页</a>
+
+<h2>🏓 {{ name }} 的所有相关微博</h2>
+<p class="weibo-count">共 {{ posts | length }} 条</p>
+
+{% for item in posts %}
+    <div class="post">
+        <div class="user-info">
+            {% set emoji = {
+                "普通用户": "🧑",
+                "黄V": "👑",
+                "蓝V": "💼",
+                "红V": "🎯",
+                "金V": "🏅"
+            } %}
+            {{ item.screen_name }} {{ emoji.get(item.user_authentication, "🧑") }} 
+        </div>
+        <div class="post-meta">
+            🕒 {{ item.created_at }}
+        </div>
+        <div class="post-content">
+            {{ item.text }}
+        </div>
+        <div class="interaction">
+            🔁 {{ item.reposts_count }}　💬 {{ item.comments_count }}　❤️ {{ item.attitudes_count }}
+        </div>
+    </div>
+{% endfor %}
+<!-- 分页 -->
+<div class="pagination" style="text-align:center; margin-top: 30px;">
+    {% if total_pages > 1 %}
+        <div class="pagination-links">
+            {% if current_page > 1 %}
+                <a href="{{ url_for('player_posts', name=name, page=1) }}">首页</a>
+                <a href="{{ url_for('player_posts', name=name, page=current_page - 1) }}">上一页</a>
+            {% endif %}
+
+            {# 中间页码块（只显示当前页前后2页） #}
+            {% for p in range(current_page - 2, current_page + 3) %}
+                {% if 1 <= p <= total_pages %}
+                    {% if p == current_page %}
+                        <strong style="margin: 0 5px;">{{ p }}</strong>
+                    {% else %}
+                        <a href="{{ url_for('player_posts', name=name, page=p) }}">{{ p }}</a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if current_page < total_pages %}
+                <a href="{{ url_for('player_posts', name=name, page=current_page + 1) }}">下一页</a>
+                <a href="{{ url_for('player_posts', name=name, page=total_pages) }}">尾页</a>
+            {% endif %}
+        </div>
+        <p style="margin-top:10px;">共 {{ total_pages }} 页</p>
+    {% endif %}
+</div>
+
+
+</body>
+</html>

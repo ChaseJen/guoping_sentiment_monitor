@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>国乒微博舆情分析系统</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+
+<div class="navbar">
+    {% for player in players %}
+        <a href="{{ url_for('player_posts', name=player) }}">{{ player }}</a>
+    {% endfor %}
+</div>
+
+<div class="container">
+    <form action="{{ url_for('ai_search') }}" method="get">
+        <input type="text" name="query" placeholder="请输入检索内容" style="width: 80%;">
+        <button type="submit">🔍 AI智搜</button>
+    </form>
+
+    <div class="charts">
+        <!-- 左侧图表：情感趋势图 -->
+        <div class="chart-box">
+            <div class="sub-navbar">
+                {% for player in players %}
+                    <a href="{{ url_for('index', player_score=player, player_network=player_network) }}"
+                       class="{% if player == player_score %}active{% endif %}">{{ player }}</a>
+                {% endfor %}
+            </div>
+            <div id="score-chart"></div>
+        </div>
+
+        <!-- 右侧图表：社交网络图 -->
+        <div class="chart-box">
+            <div class="sub-navbar">
+                {% for player in players %}
+                    <a href="{{ url_for('index', player_score=player_score, player_network=player) }}"
+                       class="{% if player == player_network %}active{% endif %}">{{ player }}</a>
+                {% endfor %}
+            </div>
+            <div id="social-chart"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const scoreGraph = {{ score_graphJSON | safe }};
+    const socialGraph = {{ social_graphJSON | safe }};
+    Plotly.newPlot('score-chart', scoreGraph.data, scoreGraph.layout);
+    Plotly.newPlot('social-chart', socialGraph.data, socialGraph.layout);
+</script>
+
+<!-- 粒子Canvas -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- 粒子动画脚本 -->
+<script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+
+</body>
+</html>

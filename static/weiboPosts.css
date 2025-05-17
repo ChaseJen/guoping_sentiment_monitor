@@ -1,0 +1,189 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "PingFang SC", "Microsoft YaHei", sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h2, h3 {
+    color: #ffffff;
+    border-left: 4px solid #ff6a00;
+    padding-left: 10px;
+    margin-top: 20px;
+}
+
+a {
+    color: #ff6a00;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.post {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    transition: transform 0.2s;
+}
+
+.post:hover {
+    transform: translateY(-2px);
+}
+
+.user-info {
+    font-weight: bold;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+    color: #ffcc00;
+}
+
+.post-meta {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.post-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #e0e0e0;
+    white-space: pre-line;
+    margin-bottom: 10px;
+}
+
+.interaction {
+    font-size: 12px;
+    color: #888;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.interaction span {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+/* 整体容器 */
+.results-header {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* 微博数量提示 */
+.news-count {
+    font-size: 17px;
+    color: white;
+    text-align: center;
+    margin-top: 5px;
+}
+.ai-response {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-bottom: 30px;
+}
+
+/* 标题样式 */
+.ai-response h1, .ai-response h2, .ai-response h3 {
+    color: #2c3e50;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+/* 列表样式 */
+.ai-response ul, .ai-response ol {
+    padding-left: 1.5em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+}
+
+.ai-response li {
+    margin-bottom: 0.5em;
+}
+
+/* 加粗和斜体 */
+.ai-response strong {
+    font-weight: bold;
+    color: #d35400;
+}
+
+.ai-response em {
+    font-style: italic;
+    color: #888;
+}
+
+/* 段落 */
+.ai-response p {
+    margin-bottom: 1em;
+}
+
+/* 代码块或行内代码 */
+.ai-response code {
+    background: #eee;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.pagination-links a,
+.pagination-links strong {
+    margin: 5px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    background-color: #1e1e1e;
+    color: #ff6a00;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pagination-links a:hover {
+    background-color: #ff6a00;
+    color: #121212;
+    transform: translateY(-2px);
+}
+
+.pagination-links strong {
+    background-color: #ff6a00;
+    color: #121212;
+    cursor: default;
+}
+
+.pagination p {
+    text-align: center;
+    font-size: 14px;
+    color: #bbb;
+    margin-top: 10px;
+}
+
+
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1; /* 放到背景层 */
+    width: 100vw;
+    height: 100vh;
+  }
