@@ -111,59 +111,82 @@ def get_social_network_graph(player):
             else:
                 G.add_edge(source, target, weight=1)
     return G
-
 def draw_networkx_plotly(G):
-    pos = nx.spring_layout(G, k=0.5, seed=42)  # 布局固定
+    pos = nx.spring_layout(G, k=0.5, seed=42)
 
+    # 边渲染
     edge_x = []
     edge_y = []
-    for edge in G.edges():
-        x0, y0 = pos[edge[0]]
-        x1, y1 = pos[edge[1]]
+    for u, v, data in G.edges(data=True):
+        x0, y0 = pos[u]
+        x1, y1 = pos[v]
         edge_x += [x0, x1, None]
         edge_y += [y0, y1, None]
 
     edge_trace = go.Scatter(
         x=edge_x, y=edge_y,
-        line=dict(width=0.5, color='#888'),
+        line=dict(
+            width=1.0,
+            color='rgba(150,150,150,0.4)'
+        ),
         hoverinfo='none',
-        mode='lines')
+        mode='lines'
+    )
 
+    # 节点渲染
     node_x = []
     node_y = []
+    node_color = []
+    node_size = []
     node_text = []
+
     for node in G.nodes():
         x, y = pos[node]
+        degree = G.degree(node)
         node_x.append(x)
         node_y.append(y)
-        node_text.append(node)
+        node_color.append(degree)
+        node_size.append(8 + degree * 2)
+        node_text.append(f"{node}<br>连接数：{degree}")
 
     node_trace = go.Scatter(
         x=node_x, y=node_y,
         mode='markers+text',
-        text=node_text,
-        textposition="bottom center",
+        textposition="top center",
         hoverinfo='text',
+        text=[n for n in G.nodes()],
         marker=dict(
             showscale=True,
-            colorscale='YlGnBu',
-            reversescale=True,
-            color=[G.degree(n) for n in G.nodes()],
-            size=10,
+            colorscale='Rainbow',
+            color=node_color,
+            size=node_size,
             colorbar=dict(
-                thickness=15,
-                title=dict(text='连接数', side='right'),
-                xanchor='left',
+                thickness=12,
+                title=dict(text='连接数', side='right'),  
+                xanchor='left'
             ),
-            line_width=2))
+            line=dict(width=1.5, color='black')
+        )
+    )
 
     fig = go.Figure(data=[edge_trace, node_trace],
                     layout=go.Layout(
-                        title=dict(text='社交网络图', font=dict(size=16)),
+                        title=dict(
+                            text='🎯 社交网络知识图谱',
+                            font=dict(size=20)  
+                        ),
                         showlegend=False,
                         hovermode='closest',
-                        margin=dict(b=20, l=5, r=5, t=40),
+                        margin=dict(b=20, l=20, r=20, t=40),
+                        annotations=[dict(
+                            text="节点大小与颜色代表连接数",
+                            showarrow=False,
+                            xref="paper", yref="paper",
+                            x=0.005, y=-0.002,
+                            font=dict(size=12)
+                        )],
                         xaxis=dict(showgrid=False, zeroline=False),
-                        yaxis=dict(showgrid=False, zeroline=False))
-                    )
+                        yaxis=dict(showgrid=False, zeroline=False)
+                    ))
     return fig
+
